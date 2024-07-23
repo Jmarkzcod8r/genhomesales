@@ -36,7 +36,7 @@ export default function SignInPage() {
       const result = await response.json();
 
       if (response.ok) {
-        localStorage.setItem('loggedInUser', JSON.stringify(result.user)); // Store user data in local storage
+        localStorage.setItem('loggedInUser', JSON.stringify(result.data)); // Store user data in local storage
         setMessage(result.message);
         router.push('/'); // Redirect to homepage
       } else {

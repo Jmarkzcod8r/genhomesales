@@ -57,13 +57,13 @@ export default function Home() {
       <div className="w-full max-w-md p-8 bg-white shadow-lg rounded-lg">
         {user ? (
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-4">Welcome, {user.user.firstName}!</h1>
+            <h1 className="text-3xl font-bold text-gray-900 mb-4">Welcome, {user.user?.firstName}!</h1>
             <div className="space-y-2 mb-6">
-              <p className="text-lg text-gray-700">Last Name: {user.user.lastName}</p>
-              <p className="text-lg text-gray-700">Email: {user.user.email}</p>
-              <p className="text-lg text-gray-700">Age: {user.user.age}</p>
-              <p className="text-lg text-gray-700">Birthday: {new Date(user.user.birthday).toLocaleDateString()}</p>
-              <p className="text-lg text-gray-700">Status: {user.user.status}</p>
+              <p className="text-lg text-gray-700">Last Name: {user.user?.lastName}</p>
+              <p className="text-lg text-gray-700">Email: {user.user?.email}</p>
+              <p className="text-lg text-gray-700">Age: {user.user?.age}</p>
+              <p className="text-lg text-gray-700">Birthday: {new Date(user.user?.birthday).toLocaleDateString()}</p>
+              <p className="text-lg text-gray-700">Status: {user.user?.status}</p>
             </div>
             <button
               onClick={handleSignOut}
