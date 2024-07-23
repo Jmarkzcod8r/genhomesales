@@ -20,7 +20,7 @@ export default function Home() {
         setData(result);
       } catch (error) {
         console.error('Failed to fetch data:', error);
-        setError('Failed to load data.');
+        // setError('Failed to load data.');
       } finally {
         setLoading(false);
       }
@@ -76,9 +76,9 @@ export default function Home() {
           <h1 className="text-3xl font-bold text-gray-900">Welcome, Guest!</h1>
         )}
 
-        {error && (
+        {/* {error && (
           <p className="mt-4 text-red-600">{error}</p>
-        )}
+        )} */}
 
 
       </div>
