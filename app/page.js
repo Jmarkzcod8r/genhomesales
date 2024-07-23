@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import axios from 'axios';
 
 export default function Home() {
   const [user, setUser] = useState(null);
@@ -12,15 +13,11 @@ export default function Home() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch('/api/hello');
-        if (!response.ok) {
-          throw new Error('Failed to fetch data');
-        }
-        const result = await response.json();
-        setData(result);
+        const response = await axios.get('/api/home');
+        setData(response.data.users); // Assuming the data is an array of users
       } catch (error) {
         console.error('Failed to fetch data:', error);
-        // setError('Failed to load data.');
+        setError('Failed to load data.');
       } finally {
         setLoading(false);
       }
@@ -76,11 +73,22 @@ export default function Home() {
           <h1 className="text-3xl font-bold text-gray-900">Welcome, Guest!</h1>
         )}
 
-        {/* {error && (
+        {data.length > 0 && (
+          <div className="mt-4">
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">User Data:</h2>
+            <ul className="space-y-2">
+              {data.map((user) => (
+                <li key={user._id} className="text-lg text-gray-700">
+                  {user.name} ({user.email})
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        {error && (
           <p className="mt-4 text-red-600">{error}</p>
-        )} */}
-
-
+        )}
       </div>
     </div>
   );
