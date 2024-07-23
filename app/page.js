@@ -39,6 +39,15 @@ export default function Home() {
     router.push('/signin'); // Redirect to the sign-in page
   };
 
+  const handleDelete = async (userId) => {
+    try {
+      await axios.delete('/api/home/delete', { data: { id: userId } });
+      setData(data.filter((user) => user._id !== userId));
+    } catch (error) {
+      console.error('Failed to delete user:', error);
+    }
+  };
+
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-gray-100">
@@ -78,17 +87,32 @@ export default function Home() {
             <h2 className="text-2xl font-bold text-gray-900 mb-4">User Data:</h2>
             <ul className="space-y-2">
               {data.map((user) => (
-                <li key={user._id} className="text-lg text-gray-700">
-                  {user.name} ({user.email})
-                </li>
+                <div key={user._id} className="bg-pink-200 p-2 rounded-lg shadow-sm">
+                  <div className="text-lg bg-slate-500 p-2 rounded-lg justify-center">
+                    {/* <p>ID: {user._id}</p> */}
+                    <p>First Name: {user.firstName}</p>
+                    <p>Last Name: {user.lastName}</p>
+                    <p>Age: {user.age}</p>
+                    <p>Birthday: {new Date(user.birthday).toLocaleDateString()}</p>
+                    <p>Status: {user.status}</p>
+                    <p>Email: {user.email}</p>
+                    <p>Is Admin: {user.isAdmin ? 'Yes' : 'No'}</p>
+                    <p>Created At: {new Date(user.createdAt).toLocaleString()}</p>
+                    <p>Updated At: {new Date(user.updatedAt).toLocaleString()}</p>
+                    <button
+                      onClick={() => handleDelete(user._id)}
+                      className="w-full bg-blue-400 text-white py-2 px-4 rounded-lg shadow-sm hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-300"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </div>
               ))}
             </ul>
           </div>
         )}
 
-        {error && (
-          <p className="mt-4 text-red-600">{error}</p>
-        )}
+        {error && <p className="mt-4 text-red-600">{error}</p>}
       </div>
     </div>
   );
